@@ -4,496 +4,488 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Warkop Sejagat</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a}
+body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-bottom:90px}
 .header{background:#1a5c2a;color:white;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
-.header h1{font-size:18px;font-weight:600}
-.header p{font-size:12px;opacity:.8;margin-top:2px}
-.tabs{display:flex;background:white;border-bottom:1px solid #e5e5e5;overflow-x:auto;position:sticky;top:56px;z-index:9}
+.header h1{font-size:18px;font-weight:700}
+.header p{font-size:12px;opacity:.85;margin-top:2px}
+.tabs{display:flex;background:white;border-bottom:1px solid #e5e5e5;overflow-x:auto;position:sticky;top:58px;z-index:9}
 .tab{padding:10px 14px;font-size:12px;cursor:pointer;color:#666;border:none;border-bottom:2px solid transparent;white-space:nowrap;background:none}
-.tab.active{color:#1a5c2a;border-bottom-color:#1a5c2a;font-weight:500}
-.ks{padding:12px 12px 0}
-.kl{font-size:10px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
-.mi{display:flex;align-items:flex-start;gap:10px;padding:10px;background:white;border:1px solid #e8e8e8;border-radius:8px;margin-bottom:6px}
-.mi.hbs{opacity:.4;pointer-events:none}
-.mn{flex:1;min-width:0}
-.nm{font-size:13px;font-weight:500}
-.mh{font-size:12px;color:#666;margin-top:2px}
-.mh b{color:#1a5c2a}
-.bh{font-size:9px;background:#fee2e2;color:#dc2626;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
-.qc{display:flex;align-items:center;gap:6px;flex-shrink:0;margin-top:2px}
-.qb{width:26px;height:26px;border:1px solid #d1d5db;border-radius:6px;background:white;font-size:16px;cursor:pointer}
-.qn{font-size:14px;font-weight:500;min-width:20px;text-align:center}
-.vs{font-size:11px;padding:3px 6px;border:1px solid #e5e5e5;border-radius:4px;background:white;margin-top:5px;width:100%}
-.ci{width:100%;padding:5px 8px;border:1px solid #e5e5e5;border-radius:4px;font-size:11px;background:white;margin-top:4px;resize:none;font-family:inherit}
+.tab.active{color:#1a5c2a;border-bottom-color:#1a5c2a;font-weight:600}
+.section{padding:12px}
+.menu-item{background:white;border:1px solid #e8e8e8;border-radius:10px;padding:10px;margin-bottom:8px}
+.menu-item.habis{opacity:.45}
+.menu-top{display:flex;justify-content:space-between;gap:10px}
+.menu-name{font-size:14px;font-weight:600}
+.menu-cat{font-size:11px;color:#888;margin-top:2px}
+.menu-price{font-size:12px;color:#1a5c2a;margin-top:4px;font-weight:600}
+.option-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.option-btn{border:1px solid #ddd;background:white;border-radius:6px;padding:6px 8px;font-size:11px;cursor:pointer}
+.option-btn.active{background:#1a5c2a;color:white;border-color:#1a5c2a}
+.qty{display:flex;align-items:center;gap:8px;margin-top:8px}
+.qty button{width:28px;height:28px;border:1px solid #ddd;background:white;border-radius:6px;font-size:16px;cursor:pointer}
+.qty span{min-width:22px;text-align:center;font-weight:600}
 .cart-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #e5e5e5;padding:12px;display:none;gap:10px;align-items:center;z-index:20;box-shadow:0 -2px 8px rgba(0,0,0,.08)}
 .cart-bar.show{display:flex}
 .cart-info{flex:1}
 .cart-info p{font-size:12px;color:#666}
-.cart-info strong{font-size:15px;font-weight:600}
-.bg{background:#1a5c2a;color:white;border:none;padding:10px 18px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:500;white-space:nowrap}
-.bo{background:white;color:#1a5c2a;border:1px solid #1a5c2a;padding:10px 14px;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap}
-.page{display:none;padding-bottom:80px}
+.cart-info strong{font-size:15px}
+.btn{border:none;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer}
+.btn-primary{background:#1a5c2a;color:white}
+.btn-outline{background:white;color:#1a5c2a;border:1px solid #1a5c2a}
+.page{display:none}
 .page.active{display:block}
-.cw{padding:12px}
-.checkout-card{background:white;border:1px solid #e8e8e8;border-radius:10px;padding:14px;margin-bottom:12px}
-.checkout-card h3{font-size:13px;color:#888;font-weight:500;margin-bottom:10px}
-.ci2{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;border-bottom:1px solid #f3f4f6}
-.ci2:last-child{border-bottom:none}
-.cin{font-size:13px}
-.cid{font-size:11px;color:#888;margin-top:1px}
-.cip{font-size:13px;font-weight:500;flex-shrink:0;margin-left:8px}
-.ctot{display:flex;justify-content:space-between;padding-top:10px;margin-top:6px;border-top:1px solid #e5e5e5;font-weight:600;font-size:15px}
-.ig{margin-bottom:10px}
-.ig label{display:block;font-size:12px;color:#666;margin-bottom:5px;font-weight:500}
-.ig input{width:100%;padding:9px 12px;border:1px solid #e5e5e5;border-radius:8px;font-size:13px;background:white}
-.staff-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
-.sc{border:1px solid #e5e5e5;border-radius:8px;padding:10px;cursor:pointer;background:white;text-align:center}
-.sc.selected{border-color:#1a5c2a;background:#f0faf3}
-.sc.offline{opacity:.4;pointer-events:none}
-.sn{font-size:13px;font-weight:500}
-.ss{font-size:11px;color:#888;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:4px}
-.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
-.dot.green{background:#16a34a}.dot.red{background:#dc2626}
-.nb{display:flex;align-items:center;gap:6px;padding:12px;cursor:pointer;color:#1a5c2a;font-size:13px;font-weight:500;background:white;border-bottom:1px solid #e5e5e5}
-.loading{text-align:center;padding:40px 20px;color:#888;font-size:14px}
-.qw{padding:20px;text-align:center}
-.qi{max-width:280px;width:100%;border:1px solid #e5e5e5;border-radius:12px}
-.qno{font-size:12px;color:#888;margin-top:10px;line-height:1.5}
-.bf{width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;margin-top:4px}
+.back{padding:12px;background:white;border-bottom:1px solid #e5e5e5;color:#1a5c2a;font-size:13px;font-weight:600;cursor:pointer}
+.card{background:white;border:1px solid #e8e8e8;border-radius:10px;padding:14px;margin:12px}
+.card h3{font-size:13px;color:#777;margin-bottom:10px}
+.input-group{margin-bottom:10px}
+.input-group label{display:block;font-size:12px;color:#666;margin-bottom:5px}
+.input-group input,.input-group textarea{width:100%;padding:10px;border:1px solid #e5e5e5;border-radius:8px;font-size:13px;font-family:inherit}
+.input-group textarea{min-height:70px;resize:vertical}
+.order-row{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid #f1f1f1}
+.order-row:last-child{border-bottom:none}
+.order-name{font-size:13px}
+.order-detail{font-size:11px;color:#888}
+.order-price{font-size:13px;font-weight:600;white-space:nowrap}
+.total-row{display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid #ddd;font-weight:700}
+.staff-choice{display:flex;align-items:center;justify-content:space-between;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;cursor:pointer;background:white}
+.staff-choice.selected{border-color:#1a5c2a;background:#f0faf3}
+.dot{width:8px;height:8px;border-radius:50%;background:#16a34a;display:inline-block;margin-right:6px}
+.loading{text-align:center;padding:30px;color:#888;font-size:13px}
+.qris-wrap{text-align:center;padding:20px}
+.qris-img{max-width:280px;width:100%;border:1px solid #e5e5e5;border-radius:12px}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111;color:white;padding:9px 16px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:50}
+.toast.show{opacity:1}
 </style>
 </head>
+
 <body>
+
 <div id="page-menu" class="page active">
-  <div class="header"><h1>Warkop Sejagat</h1><p>Pesan Antar Khusus Pesantren IIQ</p></div>
-  <div class="tabs">
-    <button class="tab active" onclick="filterKat(null,this)">Semua</button>
-    <button class="tab" onclick="filterKat('Aneka Kopi',this)">Kopi</button>
-    <button class="tab" onclick="filterKat('Minuman Lain',this)">Minuman</button>
-    <button class="tab" onclick="filterKat('Aneka Indomie',this)">Indomie</button>
-    <button class="tab" onclick="filterKat('Menu Promo',this)">Promo</button>
-    <button class="tab" onclick="filterKat('other',this)">Lainnya</button>
+  <div class="header">
+    <h1>Warkop Sejagat</h1>
+    <p>Pesan Antar Khusus Pesantren IIQ</p>
   </div>
-  <div id="menu-list"><div class="loading">Memuat menu...</div></div>
-  <div class="cart-bar" id="cb">
-    <div class="cart-info"><p id="cc">0 item</p><strong id="ct">Rp 0</strong></div>
-    <button class="bo" onclick="showPage('page-qris','page-menu')">Lihat QRIS</button>
-    <button class="bg" onclick="goCheckout()">Pesan</button>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="section" id="menu-list">
+    <div class="loading">Memuat menu...</div>
+  </div>
+
+  <div class="cart-bar" id="cart-bar">
+    <div class="cart-info">
+      <p id="cart-count">0 item</p>
+      <strong id="cart-total">Rp 0</strong>
+    </div>
+    <button class="btn btn-outline" onclick="showPage('page-qris')">QRIS</button>
+    <button class="btn btn-primary" onclick="goCheckout()">Pesan</button>
   </div>
 </div>
 
 <div id="page-qris" class="page">
-  <div class="nb" onclick="goBack()">&#8592; Kembali</div>
-  <div class="header"><h1>Pembayaran QRIS</h1><p>Warkop Sejagat 2 NP</p></div>
-  <div class="qw">
-    <img class="qi" src="qris.jpg" alt="QRIS" loading="lazy">
-    <p class="qno">Scan QR dengan e-wallet atau m-banking<br>NMID: ID1025419357831</p>
+  <div class="back" onclick="showPage('page-menu')">← Kembali</div>
+  <div class="header">
+    <h1>Pembayaran QRIS</h1>
+    <p>Warkop Sejagat</p>
+  </div>
+  <div class="qris-wrap">
+    <img class="qris-img" src="qris.jpg" alt="QRIS">
+    <p style="font-size:12px;color:#888;margin-top:10px">Scan QRIS, lalu kirim bukti transfer via WhatsApp.</p>
   </div>
 </div>
 
 <div id="page-checkout" class="page">
-  <div class="nb" onclick="goBack()">&#8592; Kembali ke menu</div>
-  <div class="header"><h1>Konfirmasi Pesanan</h1></div>
-  <div class="cw">
-    <div id="co-items"></div>
-    <div class="checkout-card">
-      <h3>Kirim ke</h3>
-      <div class="staff-grid" id="staff-grid"><div class="loading">Memuat...</div></div>
-      <div class="ig"><label>Nama kamu</label><input type="text" id="nama-user" placeholder="Tulis nama kamu..."></div>
-      <button class="bg bf" onclick="kirim()">Kirim via WhatsApp</button>
+  <div class="back" onclick="showPage('page-menu')">← Kembali</div>
+  <div class="header">
+    <h1>Checkout</h1>
+    <p>Lengkapi data pesanan</p>
+  </div>
+
+  <div class="card">
+    <h3>Ringkasan Pesanan</h3>
+    <div id="checkout-list"></div>
+    <div class="total-row">
+      <span>Total</span>
+      <span id="checkout-total">Rp 0</span>
     </div>
+  </div>
+
+  <div class="card">
+    <h3>Data Pemesan</h3>
+    <div class="input-group">
+      <label>Nama</label>
+      <input id="nama-user" placeholder="Nama kamu">
+    </div>
+    <div class="input-group">
+      <label>Lokasi Antar</label>
+      <input id="lokasi-user" placeholder="Contoh: Gerbang IIQ / Asrama">
+    </div>
+    <div class="input-group">
+      <label>Catatan</label>
+      <textarea id="catatan-user" placeholder="Contoh: gula sedikit, antar ke depan gerbang"></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Pilih Tujuan WhatsApp</h3>
+    <div id="staff-list">
+      <div class="loading">Staff online akan dimuat saat klik pesan...</div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:10px" onclick="sendWhatsApp()">Kirim WhatsApp</button>
   </div>
 </div>
 
+<div class="toast" id="toast"></div>
+
+<script src="menu-data.js"></script>
+
 <script>
+const GAS = 'ISI_URL_APPS_SCRIPT_LO_DI_SINI';
 
-var GAS = 'https://script.google.com/macros/s/AKfycbzFhpSpDuQmz2QpfPHHOsKNWeDnA1QTRTFPT72UXk2S6IAdId3gTnr08C1Zt-dpVdDN/exec';
-var allMenu = [];
-var allStaff = [];
-var cart = {};
-var activeKat = null;
-var prevPage = 'page-menu';
-var selectedStaff = null;
+let allMenu = [];
+let cart = [];
+let activeKat = null;
+let selectedOptions = {};
+let selectedStaff = null;
+let activeStaffs = [];
 
-function fmt(n) {
-  return Number(n || 0).toLocaleString('id-ID');
+function formatRp(n) {
+  return 'Rp ' + Number(n || 0).toLocaleString('id-ID');
 }
 
-function esc(v) {
-  return String(v ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-function loadJSON(action, cb) {
-  var name = '_cb_' + action + '_' + Date.now() + '_' + Math.floor(Math.random() * 9999);
-  var el = document.createElement('script');
+function jsonp(action, params = {}) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb_' + Date.now() + Math.floor(Math.random() * 9999);
+    const script = document.createElement('script');
 
-  var timeout = setTimeout(function() {
-    try { delete window[name]; el.parentNode && el.parentNode.removeChild(el); } catch(e) {}
-    cb(new Error('Timeout saat memuat ' + action));
-  }, 20000);
+    window[cb] = function(data) {
+      delete window[cb];
+      if (script.parentNode) document.body.removeChild(script);
+      resolve(data);
+    };
 
-  window[name] = function(data) {
-    clearTimeout(timeout);
-    try { delete window[name]; el.parentNode && el.parentNode.removeChild(el); } catch(e) {}
-    cb(null, data);
-  };
+    script.onerror = function() {
+      delete window[cb];
+      if (script.parentNode) document.body.removeChild(script);
+      reject(new Error('Gagal menghubungi server'));
+    };
 
-  el.onerror = function() {
-    clearTimeout(timeout);
-    try { delete window[name]; el.parentNode && el.parentNode.removeChild(el); } catch(e) {}
-    cb(new Error('Network error saat memuat ' + action));
-  };
+    const q = new URLSearchParams({
+      action,
+      callback: cb,
+      ...params
+    });
 
-  el.src = GAS + '?action=' + encodeURIComponent(action) + '&callback=' + encodeURIComponent(name) + '&t=' + Date.now();
-  document.head.appendChild(el);
+    script.src = GAS + '?' + q.toString();
+    document.body.appendChild(script);
+  });
 }
 
 function init() {
-  loadJSON('getMenu', function(e, d) {
-    if (e) {
-      document.getElementById('menu-list').innerHTML = '<div class="loading" style="color:red">Gagal memuat menu: ' + esc(e.message) + '</div>';
-      return;
-    }
-
-    allMenu = Array.isArray(d) ? d : [];
-    renderCurrentMenu();
-  });
-
-  loadJSON('getStaff', function(e, d) {
-    if (e) {
-      allStaff = [];
-      return;
-    }
-
-    allStaff = Array.isArray(d) ? d : [];
-  });
+  allMenu = Array.isArray(window.STATIC_MENU) ? window.STATIC_MENU : [];
+  renderTabs();
+  renderMenu();
 }
 
-function getFilteredMenu() {
-  var other = ['Aneka Kopi', 'Minuman Lain', 'Aneka Indomie', 'Menu Promo'];
+function renderTabs() {
+  const kats = [...new Set(allMenu.map(m => m.kategori).filter(Boolean))];
 
-  if (activeKat === null) return allMenu;
-  if (activeKat === 'other') {
-    return allMenu.filter(function(m) {
-      return !other.includes(m.kategori);
+  document.getElementById('tabs').innerHTML =
+    '<button class="tab active" data-kat="">Semua</button>' +
+    kats.map(k => `<button class="tab" data-kat="${k}">${k}</button>`).join('');
+
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', function() {
+      activeKat = this.dataset.kat || null;
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      renderMenu();
     });
-  }
-  return allMenu.filter(function(m) {
-    return m.kategori === activeKat;
   });
 }
 
-function renderCurrentMenu() {
-  renderMenu(getFilteredMenu());
+function getSelectedType(menu) {
+  const key = String(menu.id);
+  const hasPanas = Number(menu.harga_panas) > 0;
+  const hasDingin = Number(menu.harga_dingin) > 0;
+
+  if (selectedOptions[key]?.type) return selectedOptions[key].type;
+  if (hasPanas && !hasDingin) return 'Panas';
+  if (!hasPanas && hasDingin) return 'Dingin';
+  if (hasPanas && hasDingin) return 'Dingin';
+  return 'Regular';
 }
 
-function filterKat(kat, el) {
-  activeKat = kat;
-  document.querySelectorAll('.tab').forEach(function(t) {
-    t.classList.remove('active');
-  });
-  if (el) el.classList.add('active');
-  renderCurrentMenu();
-}
-
-function getQtyByMenuId(id) {
-  var total = 0;
-  Object.values(cart).forEach(function(c) {
-    if (String(c.menu.id) === String(id)) total += c.qty;
-  });
-  return total;
-}
-
-function getSelectedSuhu(id, hp, hd) {
-  var el = document.getElementById('s' + id);
-  if (el) return el.value;
-  if (hp) return 'Panas';
-  if (hd) return 'Dingin';
+function getSelectedVarian(menu) {
+  const key = String(menu.id);
+  if (selectedOptions[key]?.varian) return selectedOptions[key].varian;
+  if (Array.isArray(menu.varian) && menu.varian.length) return menu.varian[0];
   return '';
 }
 
-function getHargaBySuhu(menu, suhu) {
-  var hp = Number(menu.harga_panas) || 0;
-  var hd = Number(menu.harga_dingin) || 0;
-
-  if (suhu === 'Panas') return hp;
-  if (suhu === 'Dingin') return hd;
-  return hd || hp || 0;
+function getPrice(menu, type) {
+  if (type === 'Panas') return Number(menu.harga_panas) || 0;
+  if (type === 'Dingin') return Number(menu.harga_dingin) || 0;
+  return Number(menu.harga_dingin || menu.harga_panas || 0);
 }
 
-function getCartKey(menu, suhu) {
-  return String(menu.id) + '__' + String(suhu || 'default');
+function setType(id, type) {
+  selectedOptions[id] = selectedOptions[id] || {};
+  selectedOptions[id].type = type;
+  renderMenu();
 }
 
-function renderMenu(items) {
-  var groups = {};
+function setVarian(id, varian) {
+  selectedOptions[id] = selectedOptions[id] || {};
+  selectedOptions[id].varian = varian;
+  renderMenu();
+}
 
-  items.forEach(function(m) {
-    var kat = m.kategori || 'Lainnya';
-    if (!groups[kat]) groups[kat] = [];
-    groups[kat].push(m);
-  });
+function renderMenu() {
+  let items = allMenu;
 
-  var html = '';
-
-  for (var kat in groups) {
-    html += '<div class="ks"><div class="kl">' + esc(kat) + '</div>';
-
-    groups[kat].forEach(function(m) {
-      var id = m.id;
-      var qty = getQtyByMenuId(id);
-      var hp = Number(m.harga_panas) || 0;
-      var hd = Number(m.harga_dingin) || 0;
-      var hl = '';
-      var suhuSelect = '';
-
-      if (hp && hd) {
-        hl = 'Panas <b>Rp ' + fmt(hp) + '</b> - Dingin <b>Rp ' + fmt(hd) + '</b>';
-        suhuSelect = '<select class="vs" id="s' + esc(id) + '">'
-          + '<option value="Panas">Pilih: Panas - Rp ' + fmt(hp) + '</option>'
-          + '<option value="Dingin">Pilih: Dingin - Rp ' + fmt(hd) + '</option>'
-          + '</select>';
-      } else if (hp) {
-        hl = '<b>Rp ' + fmt(hp) + '</b>';
-      } else if (hd) {
-        hl = '<b>Rp ' + fmt(hd) + '</b>';
-      } else {
-        hl = '<b>Rp 0</b>';
-      }
-
-      var vlist = Array.isArray(m.varian) ? m.varian : [];
-      var varianSelect = vlist.length
-        ? '<select class="vs" id="v' + esc(id) + '">' + vlist.map(function(v) {
-            return '<option value="' + esc(v) + '">' + esc(v) + '</option>';
-          }).join('') + '</select>'
-        : '';
-
-      var catatan = qty > 0
-        ? '<textarea class="ci" id="c' + esc(id) + '" placeholder="Catatan untuk item ini..." rows="1" onchange="updateCatatan(' + esc(id) + ',this.value)"></textarea>'
-        : '';
-
-      html += '<div class="mi' + (m.tersedia ? '' : ' hbs') + '">'
-        + '<div class="mn">'
-        + '<div class="nm">' + esc(m.nama_menu) + (m.tersedia ? '' : '<span class="bh">Habis</span>') + '</div>'
-        + '<div class="mh">' + hl + '</div>'
-        + suhuSelect
-        + varianSelect
-        + catatan
-        + '</div>'
-        + '<div class="qc">'
-        + (qty > 0 ? '<button class="qb" onclick="ubahQty(' + esc(id) + ',-1)">-</button><span class="qn">' + qty + '</span>' : '')
-        + '<button class="qb" onclick="ubahQty(' + esc(id) + ',1)">+</button>'
-        + '</div>'
-        + '</div>';
-    });
-
-    html += '</div>';
+  if (activeKat) {
+    items = items.filter(m => m.kategori === activeKat);
   }
 
-  document.getElementById('menu-list').innerHTML = html || '<div class="loading">Kosong</div>';
-}
-
-function ubahQty(id, d) {
-  var m = null;
-
-  for (var i = 0; i < allMenu.length; i++) {
-    if (String(allMenu[i].id) === String(id)) {
-      m = allMenu[i];
-      break;
-    }
-  }
-
-  if (!m) return;
-
-  var hp = Number(m.harga_panas) || 0;
-  var hd = Number(m.harga_dingin) || 0;
-  var suhu = getSelectedSuhu(id, hp, hd);
-  var harga = getHargaBySuhu(m, suhu);
-  var key = getCartKey(m, suhu);
-  var varianEl = document.getElementById('v' + id);
-  var catatanEl = document.getElementById('c' + id);
-  var varian = varianEl ? varianEl.value : (Array.isArray(m.varian) && m.varian.length ? m.varian[0] : '');
-  var catatan = catatanEl ? catatanEl.value : '';
-
-  if (!cart[key]) {
-    cart[key] = {
-      key: key,
-      menu: m,
-      qty: 0,
-      suhu: suhu,
-      harga: harga,
-      varian: varian,
-      catatan: catatan
-    };
-  }
-
-  cart[key].harga = harga;
-  cart[key].varian = varian;
-  cart[key].catatan = catatan;
-  cart[key].qty = Math.max(0, cart[key].qty + d);
-
-  if (cart[key].qty === 0) delete cart[key];
-
-  updateBar();
-  renderCurrentMenu();
-}
-
-function updateCatatan(id, value) {
-  var hp, hd, suhu, key;
-  var m = allMenu.find(function(x) { return String(x.id) === String(id); });
-  if (!m) return;
-
-  hp = Number(m.harga_panas) || 0;
-  hd = Number(m.harga_dingin) || 0;
-  suhu = getSelectedSuhu(id, hp, hd);
-  key = getCartKey(m, suhu);
-
-  if (cart[key]) cart[key].catatan = value;
-}
-
-function updateBar() {
-  var items = Object.values(cart);
-  var total = 0;
-  var count = 0;
-
-  items.forEach(function(c) {
-    total += Number(c.harga || 0) * c.qty;
-    count += c.qty;
-  });
-
-  document.getElementById('cc').textContent = count + ' item';
-  document.getElementById('ct').textContent = 'Rp ' + fmt(total);
-  document.getElementById('cb').className = 'cart-bar' + (count > 0 ? ' show' : '');
-}
-
-function showPage(id, from) {
-  if (from) prevPage = from;
-  document.querySelectorAll('.page').forEach(function(p) {
-    p.classList.remove('active');
-  });
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-function goBack() {
-  showPage(prevPage);
-}
-
-function goCheckout() {
-  var items = Object.values(cart);
-  if (!items.length) return;
-
-  var html = '<div class="checkout-card"><h3>Pesanan kamu</h3>';
-  var total = 0;
-
-  items.forEach(function(c) {
-    var harga = Number(c.harga || 0);
-    total += harga * c.qty;
-
-    var det = [c.suhu, c.varian, c.catatan].filter(Boolean).join(' - ');
-
-    html += '<div class="ci2">'
-      + '<div><div class="cin">' + esc(c.menu.nama_menu) + '</div>'
-      + (det ? '<div class="cid">' + esc(det) + '</div>' : '')
-      + '</div>'
-      + '<div class="cip">' + c.qty + 'x Rp ' + fmt(harga) + '</div>'
-      + '</div>';
-  });
-
-  html += '<div class="ctot"><span>Total</span><span>Rp ' + fmt(total) + '</span></div></div>';
-  document.getElementById('co-items').innerHTML = html;
-
-  renderStaffGrid();
-  selectedStaff = null;
-  showPage('page-checkout', 'page-menu');
-}
-
-function renderStaffGrid() {
-  var grid = document.getElementById('staff-grid');
-
-  if (!allStaff.length) {
-    grid.innerHTML = '<div class="loading">Data penerima belum termuat. Coba tunggu sebentar atau refresh.</div>';
+  if (!items.length) {
+    document.getElementById('menu-list').innerHTML = '<div class="loading">Menu belum tersedia</div>';
     return;
   }
 
-  var sg = '';
+  document.getElementById('menu-list').innerHTML = items.map(menu => {
+    const hasPanas = Number(menu.harga_panas) > 0;
+    const hasDingin = Number(menu.harga_dingin) > 0;
+    const type = getSelectedType(menu);
+    const varian = getSelectedVarian(menu);
+    const price = getPrice(menu, type);
 
-  allStaff.forEach(function(s, index) {
-    sg += '<div class="sc' + (s.online ? '' : ' offline') + '" onclick="selStaff(this,' + index + ')">'
-      + '<div class="sn">' + esc(s.nama) + '</div>'
-      + '<div class="ss"><span class="dot ' + (s.online ? 'green' : 'red') + '"></span><span>' + (s.online ? 'Jaga' : 'Libur') + '</span></div>'
-      + '</div>';
-  });
+    const qty = cart
+      .filter(c => c.id === menu.id && c.type === type && c.varian === varian)
+      .reduce((s, c) => s + c.qty, 0);
 
-  grid.innerHTML = sg;
+    let priceText = '';
+    if (hasPanas && hasDingin) priceText = `Panas ${formatRp(menu.harga_panas)} · Dingin ${formatRp(menu.harga_dingin)}`;
+    else priceText = formatRp(price);
+
+    let typeButtons = '';
+    if (hasPanas && hasDingin) {
+      typeButtons = `
+        <div class="option-row">
+          <button class="option-btn ${type === 'Panas' ? 'active' : ''}" onclick="setType(${menu.id}, 'Panas')">Panas</button>
+          <button class="option-btn ${type === 'Dingin' ? 'active' : ''}" onclick="setType(${menu.id}, 'Dingin')">Dingin</button>
+        </div>
+      `;
+    }
+
+    let varianButtons = '';
+    if (Array.isArray(menu.varian) && menu.varian.length) {
+      varianButtons = `
+        <div class="option-row">
+          ${menu.varian.map(v => `
+            <button class="option-btn ${varian === v ? 'active' : ''}" onclick="setVarian(${menu.id}, '${v}')">${v}</button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    return `
+      <div class="menu-item ${menu.tersedia ? '' : 'habis'}">
+        <div class="menu-top">
+          <div>
+            <div class="menu-name">${menu.nama_menu}</div>
+            <div class="menu-cat">${menu.kategori}</div>
+            <div class="menu-price">${priceText}</div>
+          </div>
+        </div>
+
+        ${typeButtons}
+        ${varianButtons}
+
+        <div class="qty">
+          <button onclick="changeQty(${menu.id}, -1)">−</button>
+          <span>${qty}</span>
+          <button onclick="changeQty(${menu.id}, 1)">+</button>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
-function selStaff(el, index) {
-  document.querySelectorAll('.sc').forEach(function(c) {
-    c.classList.remove('selected');
-  });
+function changeQty(id, delta) {
+  const menu = allMenu.find(m => Number(m.id) === Number(id));
+  if (!menu || !menu.tersedia) return;
 
-  el.classList.add('selected');
-  selectedStaff = allStaff[index] || null;
+  const type = getSelectedType(menu);
+  const varian = getSelectedVarian(menu);
+  const price = getPrice(menu, type);
+
+  const idx = cart.findIndex(c => c.id === menu.id && c.type === type && c.varian === varian);
+
+  if (delta > 0) {
+    if (idx >= 0) {
+      cart[idx].qty += 1;
+    } else {
+      cart.push({
+        id: menu.id,
+        nama_menu: menu.nama_menu,
+        type,
+        varian,
+        price,
+        qty: 1
+      });
+    }
+  } else {
+    if (idx >= 0) {
+      cart[idx].qty -= 1;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    }
+  }
+
+  renderMenu();
+  updateCart();
 }
 
-function kirim() {
-  var nama = document.getElementById('nama-user').value.trim();
+function updateCart() {
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+
+  document.getElementById('cart-count').textContent = count + ' item';
+  document.getElementById('cart-total').textContent = formatRp(total);
+
+  document.getElementById('cart-bar').classList.toggle('show', count > 0);
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goCheckout() {
+  if (!cart.length) {
+    showToast('Keranjang masih kosong');
+    return;
+  }
+
+  renderCheckout();
+  showPage('page-checkout');
+  loadActiveStaffs();
+}
+
+function renderCheckout() {
+  const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+
+  document.getElementById('checkout-list').innerHTML = cart.map(i => {
+    const detail = [i.type !== 'Regular' ? i.type : '', i.varian].filter(Boolean).join(' · ');
+
+    return `
+      <div class="order-row">
+        <div>
+          <div class="order-name">${i.qty}x ${i.nama_menu}</div>
+          <div class="order-detail">${detail}</div>
+        </div>
+        <div class="order-price">${formatRp(i.price * i.qty)}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('checkout-total').textContent = formatRp(total);
+}
+
+async function loadActiveStaffs() {
+  const box = document.getElementById('staff-list');
+  box.innerHTML = '<div class="loading">Memuat staff online...</div>';
+
+  try {
+    const res = await jsonp('getActiveStaffs');
+
+    if (!res.success || !Array.isArray(res.staff) || !res.staff.length) {
+      box.innerHTML = '<div class="loading" style="color:#dc2626">Belum ada staff yang online</div>';
+      selectedStaff = null;
+      return;
+    }
+
+    activeStaffs = res.staff;
+    selectedStaff = activeStaffs[0];
+
+    renderStaffChoices();
+
+  } catch (e) {
+    box.innerHTML = '<div class="loading" style="color:#dc2626">Gagal memuat staff online</div>';
+  }
+}
+
+function renderStaffChoices() {
+  document.getElementById('staff-list').innerHTML = activeStaffs.map((s, idx) => `
+    <div class="staff-choice ${selectedStaff && selectedStaff.nama === s.nama ? 'selected' : ''}" onclick="selectStaff(${idx})">
+      <div><span class="dot"></span>${s.nama}</div>
+      <div style="font-size:11px;color:#888">Online</div>
+    </div>
+  `).join('');
+}
+
+function selectStaff(idx) {
+  selectedStaff = activeStaffs[idx];
+  renderStaffChoices();
+}
+
+function sendWhatsApp() {
+  const nama = document.getElementById('nama-user').value.trim();
+  const lokasi = document.getElementById('lokasi-user').value.trim();
+  const catatan = document.getElementById('catatan-user').value.trim();
 
   if (!nama) {
-    alert('Isi nama dulu!');
+    showToast('Nama wajib diisi');
+    return;
+  }
+
+  if (!lokasi) {
+    showToast('Lokasi antar wajib diisi');
     return;
   }
 
   if (!selectedStaff) {
-    alert('Pilih penerima dulu!');
+    showToast('Pilih tujuan WhatsApp dulu');
     return;
   }
 
-  var items = Object.values(cart);
-  var lines = '';
-  var total = 0;
+  const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
 
-  items.forEach(function(c) {
-    var harga = Number(c.harga || 0);
-    total += harga * c.qty;
+  const detail = cart.map(i => {
+    const opt = [i.type !== 'Regular' ? i.type : '', i.varian].filter(Boolean).join(' - ');
+    return `${i.qty}x ${i.nama_menu}${opt ? ' - ' + opt : ''} - ${formatRp(i.price * i.qty)}`;
+  }).join('\n');
 
-    var ket = [c.suhu, c.varian, c.catatan].filter(Boolean).join(', ');
-    lines += '- ' + c.menu.nama_menu + ' - ' + c.qty + 'x - Rp ' + fmt(harga) + (ket ? ' (' + ket + ')' : '') + '
-';
-  });
+  const text =
+`Halo ${selectedStaff.nama}, saya mau pesan:
 
-  var pesan = '*Pesan Antar Khusus Pesantren IIQ:*
+Nama: ${nama}
+Lokasi: ${lokasi}
 
-' + lines + '
-*Total: Rp ' + fmt(total) + '*
+Pesanan:
+${detail}
 
-Nama: ' + nama;
+Total: ${formatRp(total)}
 
-  window.open('https://wa.me/' + selectedStaff.nomor_wa + '?text=' + encodeURIComponent(pesan), '_blank');
+Catatan:
+${catatan || '-'}`;
 
-  try {
-    fetch(GAS, {
-      method: 'POST',
-      body: JSON.stringify({
-        action: 'logOrder',
-        nama_user: nama,
-        staff_tujuan: selectedStaff.nama,
-        total_harga: total,
-        detail_pesanan: lines
-      })
-    });
-  } catch(ex) {}
+  const url = 'https://wa.me/' + selectedStaff.nomor_wa + '?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
 }
 
 init();
-
 </script>
+
 </body>
 </html>
