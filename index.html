@@ -7,71 +7,405 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-bottom:90px}
-.header{background:#1a5c2a;color:white;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
-.header h1{font-size:18px;font-weight:700}
-.header p{font-size:12px;opacity:.85;margin-top:2px}
 
-.tabs{display:flex;background:white;border-bottom:1px solid #e5e5e5;overflow-x:auto;position:sticky;top:58px;z-index:9}
-.tab{padding:10px 14px;font-size:12px;cursor:pointer;color:#666;border:none;border-bottom:2px solid transparent;white-space:nowrap;background:none}
-.tab.active{color:#1a5c2a;border-bottom-color:#1a5c2a;font-weight:600}
+body{
+  font-family:system-ui,sans-serif;
+  background:#f5f5f5;
+  color:#1a1a1a;
+  padding-bottom:120px;
+}
 
-.section{padding:12px}
-.menu-item{background:white;border:1px solid #e8e8e8;border-radius:10px;padding:12px;margin-bottom:10px}
-.menu-item.habis{opacity:.45;pointer-events:none}
-.menu-name{font-size:15px;font-weight:700;margin-bottom:8px}
+.header{
+  background:#1a5c2a;
+  color:white;
+  padding:12px 14px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
 
-.option-line{border-top:1px solid #f1f1f1;padding-top:9px;margin-top:9px}
-.option-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.option-info{min-width:0}
-.option-title{font-size:13px;font-weight:600;color:#1a1a1a}
-.option-price{font-size:12px;color:#1a5c2a;font-weight:600;margin-top:2px}
+.header-main{
+  flex:1;
+  min-width:0;
+}
 
-.qty{display:flex;align-items:center;gap:7px;flex-shrink:0}
-.qty button{width:28px;height:28px;border:1px solid #ddd;background:white;border-radius:6px;font-size:16px;cursor:pointer}
-.qty span{min-width:20px;text-align:center;font-weight:700;font-size:13px}
+.header h1{
+  font-size:17px;
+  font-weight:700;
+  line-height:1.2;
+}
 
-.note-input{width:100%;margin-top:8px;padding:8px;border:1px solid #e5e5e5;border-radius:8px;font-size:12px;font-family:inherit;resize:vertical;min-height:38px}
+.header p{
+  font-size:11px;
+  opacity:.85;
+  margin-top:2px;
+}
 
-.cart-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #e5e5e5;padding:12px;display:none;gap:10px;align-items:center;z-index:20;box-shadow:0 -2px 8px rgba(0,0,0,.08)}
-.cart-bar.show{display:flex}
-.cart-info{flex:1}
-.cart-info p{font-size:12px;color:#666}
-.cart-info strong{font-size:15px}
+.header-logo{
+  width:40px;
+  height:40px;
+  object-fit:contain;
+  background:white;
+  border-radius:50%;
+  padding:3px;
+  flex-shrink:0;
+}
 
-.btn{border:none;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer}
-.btn-primary{background:#1a5c2a;color:white}
-.btn-outline{background:white;color:#1a5c2a;border:1px solid #1a5c2a}
+.hero-logo{
+  text-align:center;
+  padding:14px 12px 4px;
+}
 
-.page{display:none}
-.page.active{display:block}
-.back{padding:12px;background:white;border-bottom:1px solid #e5e5e5;color:#1a5c2a;font-size:13px;font-weight:600;cursor:pointer}
+.hero-logo img{
+  width:74px;
+  height:74px;
+  object-fit:contain;
+}
 
-.card{background:white;border:1px solid #e8e8e8;border-radius:10px;padding:14px;margin:12px}
-.card h3{font-size:13px;color:#777;margin-bottom:10px}
+.tabs{
+  display:flex;
+  background:white;
+  border-bottom:1px solid #e5e5e5;
+  overflow-x:auto;
+  position:sticky;
+  top:64px;
+  z-index:9;
+}
 
-.input-group{margin-bottom:10px}
-.input-group label{display:block;font-size:12px;color:#666;margin-bottom:5px}
-.input-group input{width:100%;padding:10px;border:1px solid #e5e5e5;border-radius:8px;font-size:13px;font-family:inherit}
+.tab{
+  padding:10px 14px;
+  font-size:12px;
+  cursor:pointer;
+  color:#666;
+  border:none;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+  background:none;
+}
 
-.order-item{padding:10px 0;border-bottom:1px solid #f1f1f1}
-.order-item:last-child{border-bottom:none}
-.order-row{display:flex;justify-content:space-between;gap:8px}
-.order-name{font-size:13px;font-weight:600}
-.order-detail{font-size:11px;color:#888;margin-top:2px;line-height:1.4}
-.order-price{font-size:13px;font-weight:600;white-space:nowrap}
-.total-row{display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid #ddd;font-weight:700}
+.tab.active{
+  color:#1a5c2a;
+  border-bottom-color:#1a5c2a;
+  font-weight:600;
+}
 
-.staff-choice{display:flex;align-items:center;justify-content:space-between;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;cursor:pointer;background:white}
-.staff-choice.selected{border-color:#1a5c2a;background:#f0faf3}
-.dot{width:8px;height:8px;border-radius:50%;background:#16a34a;display:inline-block;margin-right:6px}
+.section{
+  padding:12px;
+}
 
-.loading{text-align:center;padding:30px;color:#888;font-size:13px}
-.qris-wrap{text-align:center;padding:20px}
-.qris-img{max-width:280px;width:100%;border:1px solid #e5e5e5;border-radius:12px}
+.menu-item{
+  background:white;
+  border:1px solid #e8e8e8;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:10px;
+}
 
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111;color:white;padding:9px 16px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:50}
-.toast.show{opacity:1}
+.menu-item.habis{
+  opacity:.45;
+  pointer-events:none;
+}
+
+.menu-name{
+  font-size:15px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.option-line{
+  border-top:1px solid #f1f1f1;
+  padding-top:9px;
+  margin-top:9px;
+}
+
+.option-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.option-info{
+  min-width:0;
+}
+
+.option-title{
+  font-size:13px;
+  font-weight:600;
+  color:#1a1a1a;
+}
+
+.option-price{
+  font-size:12px;
+  color:#1a5c2a;
+  font-weight:600;
+  margin-top:2px;
+}
+
+.qty{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-shrink:0;
+}
+
+.qty button{
+  width:28px;
+  height:28px;
+  border:1px solid #ddd;
+  background:white;
+  border-radius:6px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.qty span{
+  min-width:20px;
+  text-align:center;
+  font-weight:700;
+  font-size:13px;
+}
+
+.note-input{
+  width:100%;
+  margin-top:8px;
+  padding:8px;
+  border:1px solid #e5e5e5;
+  border-radius:8px;
+  font-size:12px;
+  font-family:inherit;
+  resize:vertical;
+  min-height:38px;
+}
+
+.cart-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid #e5e5e5;
+  padding:10px 12px 12px;
+  display:none;
+  z-index:20;
+  box-shadow:0 -2px 8px rgba(0,0,0,.08);
+}
+
+.cart-bar.show{
+  display:block;
+}
+
+.cart-qris-top{
+  margin-bottom:8px;
+}
+
+.cart-qris-top button{
+  width:100%;
+  background:#f0faf3;
+  color:#1a5c2a;
+  border:1px solid #1a5c2a;
+  border-radius:8px;
+  padding:8px 10px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.cart-main{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.cart-info{
+  flex:1;
+}
+
+.cart-info p{
+  font-size:12px;
+  color:#666;
+}
+
+.cart-info strong{
+  font-size:15px;
+}
+
+.btn{
+  border:none;
+  border-radius:8px;
+  padding:10px 14px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.btn-primary{
+  background:#1a5c2a;
+  color:white;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.back{
+  padding:12px;
+  background:white;
+  border-bottom:1px solid #e5e5e5;
+  color:#1a5c2a;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.card{
+  background:white;
+  border:1px solid #e8e8e8;
+  border-radius:10px;
+  padding:14px;
+  margin:12px;
+}
+
+.card h3{
+  font-size:13px;
+  color:#777;
+  margin-bottom:10px;
+}
+
+.input-group{
+  margin-bottom:10px;
+}
+
+.input-group label{
+  display:block;
+  font-size:12px;
+  color:#666;
+  margin-bottom:5px;
+}
+
+.input-group input{
+  width:100%;
+  padding:10px;
+  border:1px solid #e5e5e5;
+  border-radius:8px;
+  font-size:13px;
+  font-family:inherit;
+}
+
+.order-item{
+  padding:10px 0;
+  border-bottom:1px solid #f1f1f1;
+}
+
+.order-item:last-child{
+  border-bottom:none;
+}
+
+.order-row{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.order-name{
+  font-size:13px;
+  font-weight:600;
+}
+
+.order-detail{
+  font-size:11px;
+  color:#888;
+  margin-top:2px;
+  line-height:1.4;
+}
+
+.order-price{
+  font-size:13px;
+  font-weight:600;
+  white-space:nowrap;
+}
+
+.total-row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid #ddd;
+  font-weight:700;
+}
+
+.staff-choice{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border:1px solid #e5e5e5;
+  border-radius:8px;
+  padding:10px;
+  margin-bottom:8px;
+  cursor:pointer;
+  background:white;
+}
+
+.staff-choice.selected{
+  border-color:#1a5c2a;
+  background:#f0faf3;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#16a34a;
+  display:inline-block;
+  margin-right:6px;
+}
+
+.loading{
+  text-align:center;
+  padding:30px;
+  color:#888;
+  font-size:13px;
+}
+
+.qris-wrap{
+  text-align:center;
+  padding:20px;
+}
+
+.qris-img{
+  max-width:280px;
+  width:100%;
+  border:1px solid #e5e5e5;
+  border-radius:12px;
+}
+
+.toast{
+  position:fixed;
+  bottom:120px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111;
+  color:white;
+  padding:9px 16px;
+  border-radius:8px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  z-index:50;
+}
+
+.toast.show{
+  opacity:1;
+}
 </style>
 </head>
 
@@ -79,8 +413,15 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-b
 
 <div id="page-menu" class="page active">
   <div class="header">
-    <h1>Warkop Sejagat</h1>
-    <p>Pesan Antar Khusus Pesantren IIQ</p>
+    <div class="header-main">
+      <h1>Warkop Sejagat</h1>
+      <p>Pesan Antar Khusus Pesantren IIQ</p>
+    </div>
+    <img class="header-logo" src="logo_iiq.png" alt="Logo IIQ">
+  </div>
+
+  <div class="hero-logo">
+    <img src="logo_iiq.png" alt="Logo IIQ">
   </div>
 
   <div class="tabs" id="tabs"></div>
@@ -90,21 +431,31 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-b
   </div>
 
   <div class="cart-bar" id="cart-bar">
-    <div class="cart-info">
-      <p id="cart-count">0 item</p>
-      <strong id="cart-total">Rp 0</strong>
+    <div class="cart-qris-top">
+      <button onclick="showPage('page-qris')">Lihat QRIS</button>
     </div>
-    <button class="btn btn-outline" onclick="showPage('page-qris')">QRIS</button>
-    <button class="btn btn-primary" onclick="goCheckout()">Pesan</button>
+
+    <div class="cart-main">
+      <div class="cart-info">
+        <p id="cart-count">0 item</p>
+        <strong id="cart-total">Rp 0</strong>
+      </div>
+
+      <button class="btn btn-primary" onclick="goCheckout()">Pesan</button>
+    </div>
   </div>
 </div>
 
 <div id="page-qris" class="page">
   <div class="back" onclick="showPage('page-menu')">← Kembali</div>
   <div class="header">
-    <h1>Pembayaran QRIS</h1>
-    <p>Warkop Sejagat</p>
+    <div class="header-main">
+      <h1>Pembayaran QRIS</h1>
+      <p>Warkop Sejagat</p>
+    </div>
+    <img class="header-logo" src="logo_iiq.png" alt="Logo IIQ">
   </div>
+
   <div class="qris-wrap">
     <img class="qris-img" src="qris.jpg" alt="QRIS">
     <p style="font-size:12px;color:#888;margin-top:10px">Scan QRIS, lalu kirim bukti transfer via WhatsApp.</p>
@@ -114,8 +465,11 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-b
 <div id="page-checkout" class="page">
   <div class="back" onclick="showPage('page-menu')">← Kembali</div>
   <div class="header">
-    <h1>Checkout</h1>
-    <p>Lengkapi data pesanan</p>
+    <div class="header-main">
+      <h1>Checkout</h1>
+      <p>Lengkapi data pesanan</p>
+    </div>
+    <img class="header-logo" src="logo_iiq.png" alt="Logo IIQ">
   </div>
 
   <div class="card">
@@ -172,6 +526,13 @@ function escapeText(v) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+function safeAttr(v) {
+  return String(v ?? '')
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/"/g, '&quot;');
 }
 
 function showToast(msg) {
@@ -363,16 +724,16 @@ function renderMenu() {
             </div>
 
             <div class="qty">
-              <button onclick="changeQty(${menu.id}, '${opt.type}', '${escapeText(opt.varian)}', -1)">−</button>
+              <button onclick="changeQty(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', -1)">−</button>
               <span>${qty}</span>
-              <button onclick="changeQty(${menu.id}, '${opt.type}', '${escapeText(opt.varian)}', 1)">+</button>
+              <button onclick="changeQty(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', 1)">+</button>
             </div>
           </div>
 
           <textarea
             class="note-input"
             placeholder="Keterangan opsional"
-            oninput="updateOptionNote(${menu.id}, '${opt.type}', '${escapeText(opt.varian)}', this.value)"
+            oninput="updateOptionNote(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', this.value)"
           >${escapeText(note)}</textarea>
         </div>
       `;
@@ -476,7 +837,7 @@ function renderCheckout() {
             <div class="order-name">${i.qty}x ${escapeText(i.nama_menu)}</div>
             <div class="order-detail">
               ${escapeText(detail)}
-              ${note ? '<br>Catatan: ' + escapeText(note) : ''}
+              ${note ? '<br>Keterangan: ' + escapeText(note) : ''}
             </div>
           </div>
           <div class="order-price">${formatRp(i.price * i.qty)}</div>
