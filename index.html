@@ -16,7 +16,7 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-b
 .tab.active{color:#1a5c2a;border-bottom-color:#1a5c2a;font-weight:600}
 .section{padding:12px}
 .menu-item{background:white;border:1px solid #e8e8e8;border-radius:10px;padding:10px;margin-bottom:8px}
-.menu-item.habis{opacity:.45}
+.menu-item.habis{opacity:.45;pointer-events:none}
 .menu-top{display:flex;justify-content:space-between;gap:10px}
 .menu-name{font-size:14px;font-weight:600}
 .menu-cat{font-size:11px;color:#888;margin-top:2px}
@@ -132,7 +132,7 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-b
   <div class="card">
     <h3>Pilih Tujuan WhatsApp</h3>
     <div id="staff-list">
-      <div class="loading">Staff online akan dimuat saat klik pesan...</div>
+      <div class="loading">Memuat staff online...</div>
     </div>
     <button class="btn btn-primary" style="width:100%;margin-top:10px" onclick="sendWhatsApp()">Kirim WhatsApp</button>
   </div>
@@ -143,7 +143,7 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-b
 <script src="menu-data.js"></script>
 
 <script>
-const GAS = 'ISI_URL_APPS_SCRIPT_LO_DI_SINI';
+const GAS = 'https://script.google.com/macros/s/AKfycbzFhpSpDuQmz2QpfPHHOsKNWeDnA1QTRTFPT72UXk2S6IAdId3gTnr08C1Zt-dpVdDN/exec';
 
 let allMenu = [];
 let cart = [];
@@ -154,6 +154,15 @@ let activeStaffs = [];
 
 function formatRp(n) {
   return 'Rp ' + Number(n || 0).toLocaleString('id-ID');
+}
+
+function escapeText(v) {
+  return String(v ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 function showToast(msg) {
@@ -202,7 +211,7 @@ function renderTabs() {
 
   document.getElementById('tabs').innerHTML =
     '<button class="tab active" data-kat="">Semua</button>' +
-    kats.map(k => `<button class="tab" data-kat="${k}">${k}</button>`).join('');
+    kats.map(k => `<button class="tab" data-kat="${escapeText(k)}">${escapeText(k)}</button>`).join('');
 
   document.querySelectorAll('.tab').forEach(btn => {
     btn.addEventListener('click', function() {
@@ -275,8 +284,11 @@ function renderMenu() {
       .reduce((s, c) => s + c.qty, 0);
 
     let priceText = '';
-    if (hasPanas && hasDingin) priceText = `Panas ${formatRp(menu.harga_panas)} · Dingin ${formatRp(menu.harga_dingin)}`;
-    else priceText = formatRp(price);
+    if (hasPanas && hasDingin) {
+      priceText = `Panas ${formatRp(menu.harga_panas)} · Dingin ${formatRp(menu.harga_dingin)}`;
+    } else {
+      priceText = formatRp(price);
+    }
 
     let typeButtons = '';
     if (hasPanas && hasDingin) {
@@ -293,7 +305,7 @@ function renderMenu() {
       varianButtons = `
         <div class="option-row">
           ${menu.varian.map(v => `
-            <button class="option-btn ${varian === v ? 'active' : ''}" onclick="setVarian(${menu.id}, '${v}')">${v}</button>
+            <button class="option-btn ${varian === v ? 'active' : ''}" onclick="setVarian(${menu.id}, '${String(v).replace(/'/g, "\\'")}')">${escapeText(v)}</button>
           `).join('')}
         </div>
       `;
@@ -303,8 +315,8 @@ function renderMenu() {
       <div class="menu-item ${menu.tersedia ? '' : 'habis'}">
         <div class="menu-top">
           <div>
-            <div class="menu-name">${menu.nama_menu}</div>
-            <div class="menu-cat">${menu.kategori}</div>
+            <div class="menu-name">${escapeText(menu.nama_menu)}</div>
+            <div class="menu-cat">${escapeText(menu.kategori)}</div>
             <div class="menu-price">${priceText}</div>
           </div>
         </div>
@@ -362,7 +374,6 @@ function updateCart() {
 
   document.getElementById('cart-count').textContent = count + ' item';
   document.getElementById('cart-total').textContent = formatRp(total);
-
   document.getElementById('cart-bar').classList.toggle('show', count > 0);
 }
 
@@ -391,8 +402,8 @@ function renderCheckout() {
     return `
       <div class="order-row">
         <div>
-          <div class="order-name">${i.qty}x ${i.nama_menu}</div>
-          <div class="order-detail">${detail}</div>
+          <div class="order-name">${i.qty}x ${escapeText(i.nama_menu)}</div>
+          <div class="order-detail">${escapeText(detail)}</div>
         </div>
         <div class="order-price">${formatRp(i.price * i.qty)}</div>
       </div>
@@ -428,7 +439,7 @@ async function loadActiveStaffs() {
 function renderStaffChoices() {
   document.getElementById('staff-list').innerHTML = activeStaffs.map((s, idx) => `
     <div class="staff-choice ${selectedStaff && selectedStaff.nama === s.nama ? 'selected' : ''}" onclick="selectStaff(${idx})">
-      <div><span class="dot"></span>${s.nama}</div>
+      <div><span class="dot"></span>${escapeText(s.nama)}</div>
       <div style="font-size:11px;color:#888">Online</div>
     </div>
   `).join('');
