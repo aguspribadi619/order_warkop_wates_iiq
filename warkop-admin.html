@@ -51,16 +51,25 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a}
 
 <div class="section">
   <div class="note">
-    Catatan: Staff yang ON akan muncul sebagai pilihan tujuan WhatsApp di halaman customer. Boleh lebih dari satu orang ON, misalnya Apad dan Admin.
+    Staff yang ON akan muncul sebagai pilihan tujuan WhatsApp di halaman customer. Boleh lebih dari satu orang ON, misalnya Apad dan Admin.
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const GAS = 'ISI_URL_APPS_SCRIPT_LO_DI_SINI';
+const GAS = 'https://script.google.com/macros/s/AKfycbzFhpSpDuQmz2QpfPHHOsKNWeDnA1QTRTFPT72UXk2S6IAdId3gTnr08C1Zt-dpVdDN/exec';
 
 let allStaff = [];
+
+function escapeText(v) {
+  return String(v ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -124,8 +133,8 @@ function renderStaff() {
       <div class="staff-left">
         <span class="dot ${s.online ? 'green' : ''}"></span>
         <div>
-          <div class="name">${s.nama}</div>
-          <div class="wa">${s.nomor_wa}</div>
+          <div class="name">${escapeText(s.nama)}</div>
+          <div class="wa">${escapeText(s.nomor_wa)}</div>
           <div class="status ${s.online ? 'on' : 'off'}">${s.online ? 'Online' : 'Offline'}</div>
         </div>
       </div>
