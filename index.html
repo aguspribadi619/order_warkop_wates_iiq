@@ -11,51 +11,65 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-b
 .header{background:#1a5c2a;color:white;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
 .header h1{font-size:18px;font-weight:700}
 .header p{font-size:12px;opacity:.85;margin-top:2px}
+
 .tabs{display:flex;background:white;border-bottom:1px solid #e5e5e5;overflow-x:auto;position:sticky;top:58px;z-index:9}
 .tab{padding:10px 14px;font-size:12px;cursor:pointer;color:#666;border:none;border-bottom:2px solid transparent;white-space:nowrap;background:none}
 .tab.active{color:#1a5c2a;border-bottom-color:#1a5c2a;font-weight:600}
+
 .section{padding:12px}
-.menu-item{background:white;border:1px solid #e8e8e8;border-radius:10px;padding:10px;margin-bottom:8px}
+.menu-item{background:white;border:1px solid #e8e8e8;border-radius:10px;padding:12px;margin-bottom:10px}
 .menu-item.habis{opacity:.45;pointer-events:none}
-.menu-top{display:flex;justify-content:space-between;gap:10px}
-.menu-name{font-size:14px;font-weight:600}
-.menu-cat{font-size:11px;color:#888;margin-top:2px}
-.menu-price{font-size:12px;color:#1a5c2a;margin-top:4px;font-weight:600}
-.option-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
-.option-btn{border:1px solid #ddd;background:white;border-radius:6px;padding:6px 8px;font-size:11px;cursor:pointer}
-.option-btn.active{background:#1a5c2a;color:white;border-color:#1a5c2a}
-.qty{display:flex;align-items:center;gap:8px;margin-top:8px}
+.menu-name{font-size:15px;font-weight:700;margin-bottom:8px}
+
+.option-line{border-top:1px solid #f1f1f1;padding-top:9px;margin-top:9px}
+.option-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.option-info{min-width:0}
+.option-title{font-size:13px;font-weight:600;color:#1a1a1a}
+.option-price{font-size:12px;color:#1a5c2a;font-weight:600;margin-top:2px}
+
+.qty{display:flex;align-items:center;gap:7px;flex-shrink:0}
 .qty button{width:28px;height:28px;border:1px solid #ddd;background:white;border-radius:6px;font-size:16px;cursor:pointer}
-.qty span{min-width:22px;text-align:center;font-weight:600}
+.qty span{min-width:20px;text-align:center;font-weight:700;font-size:13px}
+
+.note-input{width:100%;margin-top:8px;padding:8px;border:1px solid #e5e5e5;border-radius:8px;font-size:12px;font-family:inherit;resize:vertical;min-height:38px}
+
 .cart-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #e5e5e5;padding:12px;display:none;gap:10px;align-items:center;z-index:20;box-shadow:0 -2px 8px rgba(0,0,0,.08)}
 .cart-bar.show{display:flex}
 .cart-info{flex:1}
 .cart-info p{font-size:12px;color:#666}
 .cart-info strong{font-size:15px}
+
 .btn{border:none;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer}
 .btn-primary{background:#1a5c2a;color:white}
 .btn-outline{background:white;color:#1a5c2a;border:1px solid #1a5c2a}
+
 .page{display:none}
 .page.active{display:block}
 .back{padding:12px;background:white;border-bottom:1px solid #e5e5e5;color:#1a5c2a;font-size:13px;font-weight:600;cursor:pointer}
+
 .card{background:white;border:1px solid #e8e8e8;border-radius:10px;padding:14px;margin:12px}
 .card h3{font-size:13px;color:#777;margin-bottom:10px}
+
 .input-group{margin-bottom:10px}
 .input-group label{display:block;font-size:12px;color:#666;margin-bottom:5px}
-.input-group input,.input-group textarea{width:100%;padding:10px;border:1px solid #e5e5e5;border-radius:8px;font-size:13px;font-family:inherit}
-.input-group textarea{min-height:70px;resize:vertical}
-.order-row{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid #f1f1f1}
-.order-row:last-child{border-bottom:none}
-.order-name{font-size:13px}
-.order-detail{font-size:11px;color:#888}
+.input-group input{width:100%;padding:10px;border:1px solid #e5e5e5;border-radius:8px;font-size:13px;font-family:inherit}
+
+.order-item{padding:10px 0;border-bottom:1px solid #f1f1f1}
+.order-item:last-child{border-bottom:none}
+.order-row{display:flex;justify-content:space-between;gap:8px}
+.order-name{font-size:13px;font-weight:600}
+.order-detail{font-size:11px;color:#888;margin-top:2px;line-height:1.4}
 .order-price{font-size:13px;font-weight:600;white-space:nowrap}
 .total-row{display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid #ddd;font-weight:700}
+
 .staff-choice{display:flex;align-items:center;justify-content:space-between;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;cursor:pointer;background:white}
 .staff-choice.selected{border-color:#1a5c2a;background:#f0faf3}
 .dot{width:8px;height:8px;border-radius:50%;background:#16a34a;display:inline-block;margin-right:6px}
+
 .loading{text-align:center;padding:30px;color:#888;font-size:13px}
 .qris-wrap{text-align:center;padding:20px}
 .qris-img{max-width:280px;width:100%;border:1px solid #e5e5e5;border-radius:12px}
+
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111;color:white;padding:9px 16px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:50}
 .toast.show{opacity:1}
 </style>
@@ -119,13 +133,8 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;padding-b
       <label>Nama</label>
       <input id="nama-user" placeholder="Nama kamu">
     </div>
-    <div class="input-group">
-      <label>Lokasi Antar</label>
-      <input id="lokasi-user" placeholder="Contoh: Gerbang IIQ / Asrama">
-    </div>
-    <div class="input-group">
-      <label>Catatan</label>
-      <textarea id="catatan-user" placeholder="Contoh: gula sedikit, antar ke depan gerbang"></textarea>
+    <div style="font-size:12px;color:#666;line-height:1.5;background:#f8faf8;border:1px solid #e5e5e5;border-radius:8px;padding:10px">
+      Lokasi antar otomatis: <b>IIQ</b>
     </div>
   </div>
 
@@ -148,7 +157,7 @@ const GAS = 'https://script.google.com/macros/s/AKfycbzFhpSpDuQmz2QpfPHHOsKNWeDn
 let allMenu = [];
 let cart = [];
 let activeKat = null;
-let selectedOptions = {};
+let optionNotes = {};
 let selectedStaff = null;
 let activeStaffs = [];
 
@@ -163,10 +172,6 @@ function escapeText(v) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
-}
-
-function safeJsString(v) {
-  return String(v ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 }
 
 function showToast(msg) {
@@ -216,8 +221,58 @@ function isDrinkWithTemp(menu) {
 
 function isAvailable(menu) {
   const hasPanas = Number(menu.harga_panas) > 0;
-  const hasDingin = Number(menu.harga_dingin) > 0;
-  return Boolean(menu.tersedia) && (hasPanas || hasDingin);
+  const hasEs = Number(menu.harga_dingin) > 0;
+  return Boolean(menu.tersedia) && (hasPanas || hasEs);
+}
+
+function makeKey(menuId, type, varian) {
+  return [menuId, type || 'Regular', varian || ''].join('|');
+}
+
+function getMenuOptions(menu) {
+  const options = [];
+  const hasPanas = Number(menu.harga_panas) > 0;
+  const hasEs = Number(menu.harga_dingin) > 0;
+  const variants = Array.isArray(menu.varian) && menu.varian.length ? menu.varian : [''];
+
+  if (isDrinkWithTemp(menu)) {
+    if (hasPanas) {
+      variants.forEach(v => {
+        options.push({
+          type: 'Panas',
+          label: 'Panas',
+          varian: v,
+          price: Number(menu.harga_panas) || 0
+        });
+      });
+    }
+
+    if (hasEs) {
+      variants.forEach(v => {
+        options.push({
+          type: 'Es',
+          label: 'Es',
+          varian: v,
+          price: Number(menu.harga_dingin) || 0
+        });
+      });
+    }
+
+    return options;
+  }
+
+  const price = Number(menu.harga_dingin || menu.harga_panas || 0);
+
+  variants.forEach(v => {
+    options.push({
+      type: 'Regular',
+      label: v || '',
+      varian: v,
+      price
+    });
+  });
+
+  return options;
 }
 
 function renderTabs() {
@@ -237,66 +292,27 @@ function renderTabs() {
   });
 }
 
-function getSelectedType(menu) {
-  const key = String(menu.id);
-  const hasPanas = Number(menu.harga_panas) > 0;
-  const hasDingin = Number(menu.harga_dingin) > 0;
+function getCartItem(menuId, type, varian) {
+  return cart.find(c =>
+    Number(c.id) === Number(menuId) &&
+    c.type === type &&
+    String(c.varian || '') === String(varian || '')
+  );
+}
 
-  if (!isDrinkWithTemp(menu)) {
-    return 'Regular';
+function getCartQty(menuId, type, varian) {
+  const item = getCartItem(menuId, type, varian);
+  return item ? item.qty : 0;
+}
+
+function updateOptionNote(menuId, type, varian, value) {
+  const key = makeKey(menuId, type, varian);
+  optionNotes[key] = value;
+
+  const item = getCartItem(menuId, type, varian);
+  if (item) {
+    item.note = value;
   }
-
-  if (selectedOptions[key]?.type) {
-    const selected = selectedOptions[key].type;
-    if (selected === 'Panas' && hasPanas) return 'Panas';
-    if (selected === 'Dingin' && hasDingin) return 'Dingin';
-  }
-
-  if (hasPanas && !hasDingin) return 'Panas';
-  if (!hasPanas && hasDingin) return 'Dingin';
-  if (hasPanas && hasDingin) return 'Dingin';
-
-  return 'Regular';
-}
-
-function getSelectedVarian(menu) {
-  const key = String(menu.id);
-  if (selectedOptions[key]?.varian) return selectedOptions[key].varian;
-  if (Array.isArray(menu.varian) && menu.varian.length) return menu.varian[0];
-  return '';
-}
-
-function getPrice(menu, type) {
-  const hasPanas = Number(menu.harga_panas) > 0;
-  const hasDingin = Number(menu.harga_dingin) > 0;
-
-  if (isDrinkWithTemp(menu)) {
-    if (type === 'Panas') return Number(menu.harga_panas) || 0;
-    if (type === 'Dingin') return Number(menu.harga_dingin) || 0;
-  }
-
-  if (hasDingin) return Number(menu.harga_dingin) || 0;
-  if (hasPanas) return Number(menu.harga_panas) || 0;
-
-  return 0;
-}
-
-function setType(id, type) {
-  selectedOptions[id] = selectedOptions[id] || {};
-  selectedOptions[id].type = type;
-  renderMenu();
-}
-
-function setVarian(id, varian) {
-  selectedOptions[id] = selectedOptions[id] || {};
-  selectedOptions[id].varian = varian;
-  renderMenu();
-}
-
-function getCartQty(menu, type, varian) {
-  return cart
-    .filter(c => c.id === menu.id && c.type === type && c.varian === varian)
-    .reduce((s, c) => s + c.qty, 0);
 }
 
 function renderMenu() {
@@ -312,86 +328,85 @@ function renderMenu() {
   }
 
   document.getElementById('menu-list').innerHTML = items.map(menu => {
-    const hasPanas = Number(menu.harga_panas) > 0;
-    const hasDingin = Number(menu.harga_dingin) > 0;
     const available = isAvailable(menu);
-    const type = getSelectedType(menu);
-    const varian = getSelectedVarian(menu);
-    const price = getPrice(menu, type);
-    const qty = getCartQty(menu, type, varian);
+    const options = getMenuOptions(menu).filter(o => o.price > 0);
 
-    let priceText = '';
-
-    if (isDrinkWithTemp(menu) && hasPanas && hasDingin) {
-      priceText = `Panas ${formatRp(menu.harga_panas)} · Dingin ${formatRp(menu.harga_dingin)}`;
-    } else if (isDrinkWithTemp(menu) && hasPanas && !hasDingin) {
-      priceText = `Panas ${formatRp(menu.harga_panas)}`;
-    } else if (isDrinkWithTemp(menu) && !hasPanas && hasDingin) {
-      priceText = `Dingin ${formatRp(menu.harga_dingin)}`;
-    } else if (price > 0) {
-      priceText = formatRp(price);
-    } else {
-      priceText = 'Tidak tersedia';
-    }
-
-    let typeButtons = '';
-    if (isDrinkWithTemp(menu) && hasPanas && hasDingin) {
-      typeButtons = `
-        <div class="option-row">
-          <button class="option-btn ${type === 'Panas' ? 'active' : ''}" onclick="setType(${menu.id}, 'Panas')">Panas</button>
-          <button class="option-btn ${type === 'Dingin' ? 'active' : ''}" onclick="setType(${menu.id}, 'Dingin')">Dingin</button>
+    if (!available || !options.length) {
+      return `
+        <div class="menu-item habis">
+          <div class="menu-name">${escapeText(menu.nama_menu)}</div>
+          <div class="option-price">Tidak tersedia</div>
         </div>
       `;
     }
 
-    let varianButtons = '';
-    if (Array.isArray(menu.varian) && menu.varian.length) {
-      varianButtons = `
-        <div class="option-row">
-          ${menu.varian.map(v => `
-            <button class="option-btn ${varian === v ? 'active' : ''}" onclick="setVarian(${menu.id}, '${safeJsString(v)}')">${escapeText(v)}</button>
-          `).join('')}
+    const optionHTML = options.map(opt => {
+      const qty = getCartQty(menu.id, opt.type, opt.varian);
+      const key = makeKey(menu.id, opt.type, opt.varian);
+      const note = optionNotes[key] || '';
+
+      let title = '';
+      if (isDrinkWithTemp(menu)) {
+        title = opt.label;
+      } else if (opt.varian) {
+        title = opt.varian;
+      } else {
+        title = 'Harga';
+      }
+
+      return `
+        <div class="option-line">
+          <div class="option-top">
+            <div class="option-info">
+              <div class="option-title">${escapeText(title)}</div>
+              <div class="option-price">${formatRp(opt.price)}</div>
+            </div>
+
+            <div class="qty">
+              <button onclick="changeQty(${menu.id}, '${opt.type}', '${escapeText(opt.varian)}', -1)">−</button>
+              <span>${qty}</span>
+              <button onclick="changeQty(${menu.id}, '${opt.type}', '${escapeText(opt.varian)}', 1)">+</button>
+            </div>
+          </div>
+
+          <textarea
+            class="note-input"
+            placeholder="Keterangan opsional"
+            oninput="updateOptionNote(${menu.id}, '${opt.type}', '${escapeText(opt.varian)}', this.value)"
+          >${escapeText(note)}</textarea>
         </div>
       `;
-    }
+    }).join('');
 
     return `
-      <div class="menu-item ${available ? '' : 'habis'}">
-        <div class="menu-top">
-          <div>
-            <div class="menu-name">${escapeText(menu.nama_menu)}</div>
-            <div class="menu-cat">${escapeText(menu.kategori)}</div>
-            <div class="menu-price">${priceText}</div>
-          </div>
-        </div>
-
-        ${typeButtons}
-        ${varianButtons}
-
-        <div class="qty">
-          <button onclick="changeQty(${menu.id}, -1)">−</button>
-          <span>${qty}</span>
-          <button onclick="changeQty(${menu.id}, 1)">+</button>
-        </div>
+      <div class="menu-item">
+        <div class="menu-name">${escapeText(menu.nama_menu)}</div>
+        ${optionHTML}
       </div>
     `;
   }).join('');
 }
 
-function changeQty(id, delta) {
-  const menu = allMenu.find(m => Number(m.id) === Number(id));
+function changeQty(menuId, type, varian, delta) {
+  const menu = allMenu.find(m => Number(m.id) === Number(menuId));
   if (!menu || !isAvailable(menu)) return;
 
-  const type = getSelectedType(menu);
-  const varian = getSelectedVarian(menu);
-  const price = getPrice(menu, type);
+  const options = getMenuOptions(menu);
+  const opt = options.find(o => o.type === type && String(o.varian || '') === String(varian || ''));
 
-  if (!price) {
+  if (!opt || !opt.price) {
     showToast('Harga menu belum tersedia');
     return;
   }
 
-  const idx = cart.findIndex(c => c.id === menu.id && c.type === type && c.varian === varian);
+  const idx = cart.findIndex(c =>
+    Number(c.id) === Number(menuId) &&
+    c.type === type &&
+    String(c.varian || '') === String(varian || '')
+  );
+
+  const key = makeKey(menuId, type, varian);
+  const note = optionNotes[key] || '';
 
   if (delta > 0) {
     if (idx >= 0) {
@@ -400,10 +415,11 @@ function changeQty(id, delta) {
       cart.push({
         id: menu.id,
         nama_menu: menu.nama_menu,
-        type,
-        varian,
-        price,
-        qty: 1
+        type: opt.type,
+        varian: opt.varian,
+        price: opt.price,
+        qty: 1,
+        note
       });
     }
   } else {
@@ -449,15 +465,22 @@ function renderCheckout() {
     const detailParts = [];
     if (i.type !== 'Regular') detailParts.push(i.type);
     if (i.varian) detailParts.push(i.varian);
+
     const detail = detailParts.join(' · ');
+    const note = String(i.note || '').trim();
 
     return `
-      <div class="order-row">
-        <div>
-          <div class="order-name">${i.qty}x ${escapeText(i.nama_menu)}</div>
-          <div class="order-detail">${escapeText(detail)}</div>
+      <div class="order-item">
+        <div class="order-row">
+          <div>
+            <div class="order-name">${i.qty}x ${escapeText(i.nama_menu)}</div>
+            <div class="order-detail">
+              ${escapeText(detail)}
+              ${note ? '<br>Catatan: ' + escapeText(note) : ''}
+            </div>
+          </div>
+          <div class="order-price">${formatRp(i.price * i.qty)}</div>
         </div>
-        <div class="order-price">${formatRp(i.price * i.qty)}</div>
       </div>
     `;
   }).join('');
@@ -504,16 +527,10 @@ function selectStaff(idx) {
 
 function sendWhatsApp() {
   const nama = document.getElementById('nama-user').value.trim();
-  const lokasi = document.getElementById('lokasi-user').value.trim();
-  const catatan = document.getElementById('catatan-user').value.trim();
+  const lokasi = 'IIQ';
 
   if (!nama) {
     showToast('Nama wajib diisi');
-    return;
-  }
-
-  if (!lokasi) {
-    showToast('Lokasi antar wajib diisi');
     return;
   }
 
@@ -528,9 +545,17 @@ function sendWhatsApp() {
     const optParts = [];
     if (i.type !== 'Regular') optParts.push(i.type);
     if (i.varian) optParts.push(i.varian);
-    const opt = optParts.join(' - ');
 
-    return `${i.qty}x ${i.nama_menu}${opt ? ' - ' + opt : ''} - ${formatRp(i.price * i.qty)}`;
+    const opt = optParts.join(' - ');
+    const note = String(i.note || '').trim();
+
+    let line = `${i.qty}x ${i.nama_menu}${opt ? ' - ' + opt : ''} - ${formatRp(i.price * i.qty)}`;
+
+    if (note) {
+      line += `\n   Keterangan: ${note}`;
+    }
+
+    return line;
   }).join('\n');
 
   const text =
@@ -542,10 +567,7 @@ Lokasi: ${lokasi}
 Pesanan:
 ${detail}
 
-Total: ${formatRp(total)}
-
-Catatan:
-${catatan || '-'}`;
+Total: ${formatRp(total)}`;
 
   const url = 'https://wa.me/' + selectedStaff.nomor_wa + '?text=' + encodeURIComponent(text);
   window.open(url, '_blank');
