@@ -454,7 +454,7 @@ window.STATIC_MENU = [
     kategori: "Aneka Bubur",
     nama_menu: "Bubur Kacang Hijau",
     harga_panas: 0,
-    harga_dingin: 10000,
+    harga_dingin: 8000,
     varian: [],
     tersedia: true
   },
