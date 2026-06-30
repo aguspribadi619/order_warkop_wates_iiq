@@ -583,5 +583,14 @@ window.STATIC_MENU = [
     harga_dingin: 15000,
     varian: ["Coklat", "Strawberry", "Blueberry"],
     tersedia: true
-  }
+  },
+  {
+  id: 66,
+  kategori: "Menu Promo",
+  nama_menu: "Nasi Putih",
+  harga_panas: 0,
+  harga_dingin: 5000,
+  varian: [],
+  tersedia: true
+}
 ];
