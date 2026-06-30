@@ -401,6 +401,29 @@ body{
   border-radius:12px;
 }
 
+.warning-qris{
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#9a3412;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:14px;
+  text-align:left;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.warning-checkout{
+  background:#f0faf3;
+  border:1px solid #bbf7d0;
+  color:#166534;
+  border-radius:10px;
+  padding:12px;
+  margin-top:10px;
+  font-size:13px;
+  line-height:1.5;
+}
+
 .toast{
   position:fixed;
   bottom:120px;
@@ -458,6 +481,7 @@ body{
 
 <div id="page-qris" class="page">
   <div class="back" onclick="showPage('page-menu')">← Kembali</div>
+
   <div class="header">
     <div class="header-main">
       <h1>Pembayaran QRIS</h1>
@@ -467,13 +491,23 @@ body{
   </div>
 
   <div class="qris-wrap">
+    <div class="warning-qris">
+      <b>PENTING:</b><br>
+      Mohon jangan melakukan pembayaran sebelum pesanan dikonfirmasi oleh staff.<br>
+      Jika menu yang dipesan kosong, staff akan membantu menawarkan menu pengganti.
+    </div>
+
     <img class="qris-img" src="qris.jpg" alt="QRIS">
-    <p style="font-size:12px;color:#888;margin-top:10px">Scan QRIS, lalu kirim bukti transfer via WhatsApp.</p>
+
+    <p style="font-size:12px;color:#888;margin-top:10px">
+      Scan QRIS setelah staff mengkonfirmasi bahwa pesanan tersedia.
+    </p>
   </div>
 </div>
 
 <div id="page-checkout" class="page">
   <div class="back" onclick="showPage('page-menu')">← Kembali</div>
+
   <div class="header">
     <div class="header-main">
       <h1>Checkout</h1>
@@ -497,6 +531,7 @@ body{
       <label>Nama</label>
       <input id="nama-user" placeholder="Nama kamu">
     </div>
+
     <div style="font-size:12px;color:#666;line-height:1.5;background:#f8faf8;border:1px solid #e5e5e5;border-radius:8px;padding:10px">
       Lokasi antar otomatis: <b>IIQ</b>
     </div>
@@ -507,6 +542,12 @@ body{
     <div id="staff-list">
       <div class="loading">Memuat staff online...</div>
     </div>
+
+    <div class="warning-checkout">
+      Silakan kirim pesanan terlebih dahulu melalui WhatsApp.<br>
+      Pembayaran dilakukan setelah staff mengkonfirmasi bahwa menu tersedia.
+    </div>
+
     <button class="btn btn-primary" style="width:100%;margin-top:10px" onclick="sendWhatsApp()">Kirim WhatsApp</button>
   </div>
 </div>
