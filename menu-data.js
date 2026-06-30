@@ -569,7 +569,7 @@ window.STATIC_MENU = [
   {
     id: 64,
     kategori: "Roti Bakar",
-    nama_menu: "Roti Bakar Bandung Double",
+    nama_menu: "Roti Bakar Bandung Double Keju",
     harga_panas: 0,
     harga_dingin: 23000,
     varian: [],
