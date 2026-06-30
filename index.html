@@ -136,6 +136,30 @@ body{
   margin-top:2px;
 }
 
+.packaging-row{
+  display:flex;
+  gap:6px;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+
+.packaging-btn{
+  border:1px solid #ddd;
+  background:white;
+  color:#333;
+  border-radius:7px;
+  padding:6px 8px;
+  font-size:11px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.packaging-btn.active{
+  background:#1a5c2a;
+  color:white;
+  border-color:#1a5c2a;
+}
+
 .qty{
   display:flex;
   align-items:center;
@@ -498,8 +522,12 @@ let allMenu = [];
 let cart = [];
 let activeKat = null;
 let optionNotes = {};
+let selectedPackaging = {};
 let selectedStaff = null;
 let activeStaffs = [];
+
+const PAPER_BOWL_PRICE = 2000;
+const PACKAGING_CATEGORIES = ['Aneka Indomie', 'Menu Promo', 'Aneka Bubur'];
 
 function formatRp(n) {
   return 'Rp ' + Number(n || 0).toLocaleString('id-ID');
@@ -566,14 +594,37 @@ function isDrinkWithTemp(menu) {
   return Number(menu.id) >= 1 && Number(menu.id) <= 33;
 }
 
+function hasPackagingOption(menu) {
+  return PACKAGING_CATEGORIES.includes(String(menu.kategori || '').trim());
+}
+
+function getPackagingPrice(packaging) {
+  return packaging === 'Paper Bowl' ? PAPER_BOWL_PRICE : 0;
+}
+
+function makeBaseKey(menuId, type, varian) {
+  return [menuId, type || 'Regular', varian || ''].join('|');
+}
+
+function makeKey(menuId, type, varian, packaging) {
+  return [menuId, type || 'Regular', varian || '', packaging || 'Styrofoam'].join('|');
+}
+
+function getSelectedPackaging(menuId, type, varian) {
+  const baseKey = makeBaseKey(menuId, type, varian);
+  return selectedPackaging[baseKey] || 'Styrofoam';
+}
+
+function setPackaging(menuId, type, varian, packaging) {
+  const baseKey = makeBaseKey(menuId, type, varian);
+  selectedPackaging[baseKey] = packaging;
+  renderMenu();
+}
+
 function isAvailable(menu) {
   const hasPanas = Number(menu.harga_panas) > 0;
   const hasEs = Number(menu.harga_dingin) > 0;
   return Boolean(menu.tersedia) && (hasPanas || hasEs);
-}
-
-function makeKey(menuId, type, varian) {
-  return [menuId, type || 'Regular', varian || ''].join('|');
 }
 
 function getMenuOptions(menu) {
@@ -589,7 +640,7 @@ function getMenuOptions(menu) {
           type: 'Panas',
           label: 'Panas',
           varian: v,
-          price: Number(menu.harga_panas) || 0
+          basePrice: Number(menu.harga_panas) || 0
         });
       });
     }
@@ -600,7 +651,7 @@ function getMenuOptions(menu) {
           type: 'Es',
           label: 'Es',
           varian: v,
-          price: Number(menu.harga_dingin) || 0
+          basePrice: Number(menu.harga_dingin) || 0
         });
       });
     }
@@ -615,7 +666,7 @@ function getMenuOptions(menu) {
       type: 'Regular',
       label: v || '',
       varian: v,
-      price
+      basePrice: price
     });
   });
 
@@ -639,24 +690,25 @@ function renderTabs() {
   });
 }
 
-function getCartItem(menuId, type, varian) {
+function getCartItem(menuId, type, varian, packaging) {
   return cart.find(c =>
     Number(c.id) === Number(menuId) &&
     c.type === type &&
-    String(c.varian || '') === String(varian || '')
+    String(c.varian || '') === String(varian || '') &&
+    String(c.packaging || 'Styrofoam') === String(packaging || 'Styrofoam')
   );
 }
 
-function getCartQty(menuId, type, varian) {
-  const item = getCartItem(menuId, type, varian);
+function getCartQty(menuId, type, varian, packaging) {
+  const item = getCartItem(menuId, type, varian, packaging);
   return item ? item.qty : 0;
 }
 
-function updateOptionNote(menuId, type, varian, value) {
-  const key = makeKey(menuId, type, varian);
+function updateOptionNote(menuId, type, varian, packaging, value) {
+  const key = makeKey(menuId, type, varian, packaging);
   optionNotes[key] = value;
 
-  const item = getCartItem(menuId, type, varian);
+  const item = getCartItem(menuId, type, varian, packaging);
   if (item) {
     item.note = value;
   }
@@ -676,7 +728,7 @@ function renderMenu() {
 
   document.getElementById('menu-list').innerHTML = items.map(menu => {
     const available = isAvailable(menu);
-    const options = getMenuOptions(menu).filter(o => o.price > 0);
+    const options = getMenuOptions(menu).filter(o => o.basePrice > 0);
 
     if (!available || !options.length) {
       return `
@@ -688,8 +740,11 @@ function renderMenu() {
     }
 
     const optionHTML = options.map(opt => {
-      const qty = getCartQty(menu.id, opt.type, opt.varian);
-      const key = makeKey(menu.id, opt.type, opt.varian);
+      const packagingEnabled = hasPackagingOption(menu);
+      const packaging = packagingEnabled ? getSelectedPackaging(menu.id, opt.type, opt.varian) : 'Styrofoam';
+      const unitPrice = Number(opt.basePrice) + getPackagingPrice(packaging);
+      const qty = getCartQty(menu.id, opt.type, opt.varian, packaging);
+      const key = makeKey(menu.id, opt.type, opt.varian, packaging);
       const note = optionNotes[key] || '';
 
       let title = '';
@@ -701,25 +756,44 @@ function renderMenu() {
         title = 'Harga';
       }
 
+      let packagingHTML = '';
+      if (packagingEnabled) {
+        packagingHTML = `
+          <div class="packaging-row">
+            <button
+              class="packaging-btn ${packaging === 'Styrofoam' ? 'active' : ''}"
+              onclick="setPackaging(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', 'Styrofoam')"
+            >Styrofoam Rp 0</button>
+
+            <button
+              class="packaging-btn ${packaging === 'Paper Bowl' ? 'active' : ''}"
+              onclick="setPackaging(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', 'Paper Bowl')"
+            >Paper Bowl +Rp 2.000</button>
+          </div>
+        `;
+      }
+
       return `
         <div class="option-line">
           <div class="option-top">
             <div class="option-info">
               <div class="option-title">${escapeText(title)}</div>
-              <div class="option-price">${formatRp(opt.price)}</div>
+              <div class="option-price">${formatRp(unitPrice)}</div>
             </div>
 
             <div class="qty">
-              <button onclick="changeQty(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', -1)">−</button>
+              <button onclick="changeQty(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', '${safeAttr(packaging)}', -1)">−</button>
               <span>${qty}</span>
-              <button onclick="changeQty(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', 1)">+</button>
+              <button onclick="changeQty(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', '${safeAttr(packaging)}', 1)">+</button>
             </div>
           </div>
+
+          ${packagingHTML}
 
           <textarea
             class="note-input"
             placeholder="Keterangan opsional"
-            oninput="updateOptionNote(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', this.value)"
+            oninput="updateOptionNote(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', '${safeAttr(packaging)}', this.value)"
           >${escapeText(note)}</textarea>
         </div>
       `;
@@ -734,25 +808,29 @@ function renderMenu() {
   }).join('');
 }
 
-function changeQty(menuId, type, varian, delta) {
+function changeQty(menuId, type, varian, packaging, delta) {
   const menu = allMenu.find(m => Number(m.id) === Number(menuId));
   if (!menu || !isAvailable(menu)) return;
 
   const options = getMenuOptions(menu);
   const opt = options.find(o => o.type === type && String(o.varian || '') === String(varian || ''));
 
-  if (!opt || !opt.price) {
+  if (!opt || !opt.basePrice) {
     showToast('Harga menu belum tersedia');
     return;
   }
 
+  const finalPackaging = hasPackagingOption(menu) ? packaging : 'Styrofoam';
+  const unitPrice = Number(opt.basePrice) + getPackagingPrice(finalPackaging);
+
   const idx = cart.findIndex(c =>
     Number(c.id) === Number(menuId) &&
     c.type === type &&
-    String(c.varian || '') === String(varian || '')
+    String(c.varian || '') === String(varian || '') &&
+    String(c.packaging || 'Styrofoam') === String(finalPackaging || 'Styrofoam')
   );
 
-  const key = makeKey(menuId, type, varian);
+  const key = makeKey(menuId, type, varian, finalPackaging);
   const note = optionNotes[key] || '';
 
   if (delta > 0) {
@@ -761,10 +839,14 @@ function changeQty(menuId, type, varian, delta) {
     } else {
       cart.push({
         id: menu.id,
+        kategori: menu.kategori,
         nama_menu: menu.nama_menu,
         type: opt.type,
         varian: opt.varian,
-        price: opt.price,
+        packaging: finalPackaging,
+        basePrice: Number(opt.basePrice),
+        packagingPrice: getPackagingPrice(finalPackaging),
+        price: unitPrice,
         qty: 1,
         note
       });
@@ -810,8 +892,10 @@ function renderCheckout() {
 
   document.getElementById('checkout-list').innerHTML = cart.map(i => {
     const detailParts = [];
+
     if (i.type !== 'Regular') detailParts.push(i.type);
     if (i.varian) detailParts.push(i.varian);
+    if (i.packaging === 'Paper Bowl') detailParts.push('Paper Bowl');
 
     const detail = detailParts.join(' · ');
     const note = String(i.note || '').trim();
@@ -890,8 +974,10 @@ function sendWhatsApp() {
 
   const detail = cart.map(i => {
     const optParts = [];
+
     if (i.type !== 'Regular') optParts.push(i.type);
     if (i.varian) optParts.push(i.varian);
+    if (i.packaging === 'Paper Bowl') optParts.push('Paper Bowl');
 
     const opt = optParts.join(' - ');
     const note = String(i.note || '').trim();
