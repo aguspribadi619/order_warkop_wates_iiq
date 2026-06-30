@@ -635,8 +635,16 @@ function isDrinkWithTemp(menu) {
   return Number(menu.id) >= 1 && Number(menu.id) <= 33;
 }
 
+function isNasiPutih(menu) {
+  return String(menu.nama_menu || '').trim().toLowerCase() === 'nasi putih';
+}
+
 function hasPackagingOption(menu) {
   return PACKAGING_CATEGORIES.includes(String(menu.kategori || '').trim());
+}
+
+function getDefaultPackaging(menu) {
+  return isNasiPutih(menu) ? 'Kertas Nasi' : 'Styrofoam';
 }
 
 function getPackagingPrice(packaging) {
@@ -651,9 +659,9 @@ function makeKey(menuId, type, varian, packaging) {
   return [menuId, type || 'Regular', varian || '', packaging || 'Styrofoam'].join('|');
 }
 
-function getSelectedPackaging(menuId, type, varian) {
-  const baseKey = makeBaseKey(menuId, type, varian);
-  return selectedPackaging[baseKey] || 'Styrofoam';
+function getSelectedPackaging(menu, type, varian) {
+  const baseKey = makeBaseKey(menu.id, type, varian);
+  return selectedPackaging[baseKey] || getDefaultPackaging(menu);
 }
 
 function setPackaging(menuId, type, varian, packaging) {
@@ -782,7 +790,7 @@ function renderMenu() {
 
     const optionHTML = options.map(opt => {
       const packagingEnabled = hasPackagingOption(menu);
-      const packaging = packagingEnabled ? getSelectedPackaging(menu.id, opt.type, opt.varian) : 'Styrofoam';
+      const packaging = packagingEnabled ? getSelectedPackaging(menu, opt.type, opt.varian) : getDefaultPackaging(menu);
       const unitPrice = Number(opt.basePrice) + getPackagingPrice(packaging);
       const qty = getCartQty(menu.id, opt.type, opt.varian, packaging);
       const key = makeKey(menu.id, opt.type, opt.varian, packaging);
@@ -799,12 +807,15 @@ function renderMenu() {
 
       let packagingHTML = '';
       if (packagingEnabled) {
+        const freePackagingLabel = isNasiPutih(menu) ? 'Kertas Nasi Rp 0' : 'Styrofoam Rp 0';
+        const freePackagingValue = getDefaultPackaging(menu);
+
         packagingHTML = `
           <div class="packaging-row">
             <button
-              class="packaging-btn ${packaging === 'Styrofoam' ? 'active' : ''}"
-              onclick="setPackaging(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', 'Styrofoam')"
-            >Styrofoam Rp 0</button>
+              class="packaging-btn ${packaging === freePackagingValue ? 'active' : ''}"
+              onclick="setPackaging(${menu.id}, '${safeAttr(opt.type)}', '${safeAttr(opt.varian)}', '${safeAttr(freePackagingValue)}')"
+            >${freePackagingLabel}</button>
 
             <button
               class="packaging-btn ${packaging === 'Paper Bowl' ? 'active' : ''}"
@@ -861,7 +872,7 @@ function changeQty(menuId, type, varian, packaging, delta) {
     return;
   }
 
-  const finalPackaging = hasPackagingOption(menu) ? packaging : 'Styrofoam';
+  const finalPackaging = hasPackagingOption(menu) ? packaging : getDefaultPackaging(menu);
   const unitPrice = Number(opt.basePrice) + getPackagingPrice(finalPackaging);
 
   const idx = cart.findIndex(c =>
