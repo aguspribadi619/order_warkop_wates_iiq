@@ -320,7 +320,7 @@ window.STATIC_MENU = [
     nama_menu: "Indomie Goreng",
     harga_panas: 0,
     harga_dingin: 8000,
-    varian: ["Goreng Special", "Rendang"],
+    varian: ["Goreng Special", "Rendang", "Aceh"],
     tersedia: true
   },
   {
@@ -338,7 +338,7 @@ window.STATIC_MENU = [
     nama_menu: "Indomie + Telur",
     harga_panas: 0,
     harga_dingin: 12000,
-    varian: ["Goreng Special", "Rendang", "Soto Mie", "Kari Ayam", "Ayam Bawang"],
+    varian: ["Goreng Special", "Rendang", "Soto Mie", "Kari Ayam", "Ayam Bawang", "Aceh"],
     tersedia: true
   },
   {
@@ -347,7 +347,7 @@ window.STATIC_MENU = [
     nama_menu: "Indomie Double",
     harga_panas: 0,
     harga_dingin: 16000,
-    varian: ["Goreng Special", "Rendang", "Soto Mie", "Kari Ayam", "Ayam Bawang"],
+    varian: ["Goreng Special", "Rendang", "Soto Mie", "Kari Ayam", "Ayam Bawang", "Aceh"],
     tersedia: true
   },
   {
@@ -356,7 +356,7 @@ window.STATIC_MENU = [
     nama_menu: "Indomie Double + Telur",
     harga_panas: 0,
     harga_dingin: 18000,
-    varian: ["Goreng Special", "Rendang", "Soto Mie", "Kari Ayam", "Ayam Bawang"],
+    varian: ["Goreng Special", "Rendang", "Soto Mie", "Kari Ayam", "Ayam Bawang", "Aceh"],
     tersedia: true
   },
   {
@@ -365,7 +365,7 @@ window.STATIC_MENU = [
     nama_menu: "Internet (indomie telur kornet)",
     harga_panas: 0,
     harga_dingin: 20000,
-    varian: ["Goreng Special", "Rendang", "Soto Mie", "Kari Ayam", "Ayam Bawang"],
+    varian: ["Goreng Special", "Rendang", "Soto Mie", "Kari Ayam", "Ayam Bawang", "Aceh"],
     tersedia: true
   },
   {
