@@ -546,7 +546,7 @@ window.STATIC_MENU = [
     harga_panas: 0,
     harga_dingin: 7000,
     varian: [],
-    tersedia: true
+    tersedia: false
   },
   {
     id: 62,
